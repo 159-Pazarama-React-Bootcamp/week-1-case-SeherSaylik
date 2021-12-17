@@ -1,37 +1,60 @@
-const isCreditCardNumberValid = (cardNumber) => {
-    let status= true
-    let counter= 0
-    let sumNumbers= 0
-    let sameNumCount= 0
-    const strCardNumber=String(cardNumber)
-    const length=strCardNumber.length
-    for (let index = 0; index < length; index++) {
-        let eachString= cardNumber.slice(index,index+1)
-        let checkInt=parseInt(eachString)
-        if(eachString==="-"){
-        }else if(isNaN(checkInt)){
-          status=false
-        }else{
-          for (let index = 0; index < length; index++){
-              if(eachString===cardNumber.slice(index,index+1)){
-                sameNumCount=sameNumCount+1
-                if(sameNumCount>13){
-                    status=false
-                }
-              }
-              
-          }
-          sameNumCount=0
-          counter=counter+1
-          sumNumbers= checkInt+ sumNumbers
-        }
-    }
-    if(counter!=16 || sumNumbers<16){
-      status=false
-    }
-    if((cardNumber.slice(length-1,length))%2!=0){
-      status=false
-    }
-    console.log(status)
+window.onload = function () {
+
+  const name = document.getElementById('name');
+  const cardnumber = document.getElementById('cardnumber');
+  const expirationdate = document.getElementById('expirationdate');
+  const securitycode = document.getElementById('securitycode');
+
+
+  //On Input Change Events
+name.addEventListener('input', function () {
+  if (name.value.length == 0) {
+      document.getElementById('svgname').innerHTML = 'John Doe';
+      document.getElementById('svgnameback').innerHTML = 'John Doe';
+  } else {
+      document.getElementById('svgname').innerHTML = this.value;
+      document.getElementById('svgnameback').innerHTML = this.value;
+  }
+});
+
+cardnumber.addEventListener('input', function () {
+  if (cardnumber.value.length == 0) {
+    document.getElementById('svgnumber').innerHTML = '0123 4567 8910 1112';
+} else {
+    document.getElementById('svgnumber').innerHTML = this.value;
 }
-isCreditCardNumberValid("3333-3333-3333-3888")
+})
+
+expirationdate.addEventListener('input', function () {
+  if (expirationdate.value.length == 0) {
+    document.getElementById('svgexpire').innerHTML = '01/23';
+} else {
+    document.getElementById('svgexpire').innerHTML = this.value;
+}
+})
+
+securitycode.addEventListener('input', function () {
+  if (securitycode.value.length == 0) {
+      document.getElementById('svgsecurity').innerHTML = '985';
+  } else {
+      document.getElementById('svgsecurity').innerHTML = this.value;
+  }
+});
+
+//On Focus Events
+name.addEventListener('focus', function () {
+  document.querySelector('.creditcard').classList.remove('flipped');
+});
+
+cardnumber.addEventListener('focus', function () {
+  document.querySelector('.creditcard').classList.remove('flipped');
+});
+
+expirationdate.addEventListener('focus', function () {
+  document.querySelector('.creditcard').classList.remove('flipped');
+});
+
+securitycode.addEventListener('focus', function () {
+  document.querySelector('.creditcard').classList.add('flipped');
+});
+};
