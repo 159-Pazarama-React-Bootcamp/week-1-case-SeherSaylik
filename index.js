@@ -2,6 +2,7 @@ const isCreditCardNumberValid = (cardNumber) => {
     let status= true
     let counter= 0
     let sumNumbers= 0
+    let sameNumCount= 0
     const strCardNumber=String(cardNumber)
     const length=strCardNumber.length
     for (let index = 0; index < length; index++) {
@@ -11,6 +12,16 @@ const isCreditCardNumberValid = (cardNumber) => {
         }else if(isNaN(checkInt)){
           status=false
         }else{
+          for (let index = 0; index < length; index++){
+              if(eachString===cardNumber.slice(index,index+1)){
+                sameNumCount=sameNumCount+1
+                if(sameNumCount>13){
+                    status=false
+                }
+              }
+              
+          }
+          sameNumCount=0
           counter=counter+1
           sumNumbers= checkInt+ sumNumbers
         }
@@ -23,4 +34,4 @@ const isCreditCardNumberValid = (cardNumber) => {
     }
     console.log(status)
 }
-isCreditCardNumberValid("11213234-123-23-238")
+isCreditCardNumberValid("3333-3333-3333-3888")
